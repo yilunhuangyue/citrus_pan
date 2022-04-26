@@ -1,0 +1,3 @@
+minimap2 -t 50 -x ava-ont nanopore.fasta nanopore.fasta | gzip -1 > OUT.paf.gz
+miniasm -f nanopore.fasta OUT.paf.gz > reads.gfa
+awk '/^S/{print ">"$2"\n"$3}' reads.gfa | seqkit seq > OUT_raw.fasta
