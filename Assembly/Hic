@@ -1,0 +1,7 @@
+bwa index ref.fa
+python ~/software/juicer/misc/generate_site_positions.py DpnII spe ref.fa
+awk 'BEGIN{OFS="\t"}{print $1, $NF}' spe_DpnII.txt >spe.chromsizes
+~/software/juicer/CPU/juicer.sh -g spe -s DpnII -p spe.chromsizes -y spe_DpnII.txt -z ref.fa -D ~/software/juicer/CPU -t 10
+~/software/3d-dna/run-asm-pipeline.sh ref.fa merged_nodups.txt
+#input the result to juicer-box and adjust manually
+sh ~/software/3d-dna/run-asm-pipeline-post-review.sh -r spe.FINAL.review.assembly  ref.fa spe.mnd.txt
