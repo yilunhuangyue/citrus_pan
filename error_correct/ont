@@ -1,0 +1,6 @@
+minimap2 raw.fasta nanopore.fasta > raw1.paf
+racon -t 10 nanopore.fasta raw1.paf raw.fasta > raw1.fasta
+minimap2 raw1.fasta nanopore.fasta > raw2.paf
+racon -t 10 nanopore.fasta raw2.paf raw1.fasta > raw2.fasta
+minimap2 raw2.fasta nanopore.fasta > raw3.paf
+racon -t 20 nanopore.fasta raw3.paf raw2.fasta > raw3.fasta
