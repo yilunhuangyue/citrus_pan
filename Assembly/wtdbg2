@@ -1,0 +1,2 @@
+wtdbg2 -x ont -g 380m -i ont.fqstq.gz -t26 -fo OUT_raw  -AS 3 -R
+wtpoa-cns -t 26 -i OUT_raw.ctg.lay.gz -fo OUT_raw.ctg.lay.fa
