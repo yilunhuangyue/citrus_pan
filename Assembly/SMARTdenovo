@@ -1,0 +1,2 @@
+smartdenovo.pl -c 1 -e zmo nanopore.fasta > OUT.mak
+make -f OUT.mak
