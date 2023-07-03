@@ -1,0 +1,2 @@
+vcftools --vcf all.filt.recode.vcf --plink --out tmp
+plink --file tmp --cluster --matrix --noweb
