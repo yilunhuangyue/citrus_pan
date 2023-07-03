@@ -1,0 +1,32 @@
+#nexus
+begin trees;
+tree tree_1 = [&R] (((JLX8:0.094802,(JXHP:0.074715,SXJ:0.099180):0.002353):0.002305,(JLX1:0.092223,((Aeg:0.132726,((HCR:0.057079,CGI:0.034036):0.027580,(HKC:0.049375,(ZK7:0.022886,(MSYG:0.016722,(((((((Flame:0.000355,10Z:0.002773):0.004157,s2:0.007274):0.005129,((BS:0.009532,YLK:0.000049):0.001456,9Y:0.009287):0.011027):0.001557,200:0.012959):0.002386,(NGD:0.011255,(((round_lime1:0.008861,AZM4:0.002649):0.001201,ASM:0.016466):0.002478,Cpo:0.017954):0.008510):0.001884):0.001448,(((R05:0.007819,(19P:0.000576,LQ:0.000098):0.003665):0.001831,CHG:0.000119):0.006570,LWL:0.010091):0.002498):0.001318,ZGYCC:0.011004):0.001877):0.004808):0.021477):0.006285):0.032046):0.004820,SYT:0.092166):0.015244):0.020430):0.160021,huajiao:0.160021);
+
+
+end;
+
+begin r8s;
+blformat lengths=persite nsites=1423832 ulrametric=no;
+MRCA ori1 JXHP SXJ ;
+MRCA ori2 MSYG ZGYCC;
+MRCA ori3 BS 10Z;
+fixage taxon=ori1 age=27.23;
+#fixage taxon=ori2 age=8;
+#constrain taxon=ori2 min_age=8 max_age=8.1;
+constrain taxon=ori3 min_age=6 max_age=6.5
+divtime method=PL crossv=yes cvstart=0 cvinc=1 cvnum=18;
+#set smoothing=100;
+set seed=3 num_time_guesses=3 num_restarts=3 maxiter=3000 verbose=0 smoothing=3;
+divtime method=PL algorithm=TN;
+
+describe plot=phylogram;
+describe plot=cladogram;
+describe plot=tree_description;
+describe plot=chrono_description;
+describe plot=phylo_description;
+describe plot=rato_description;
+showage;
+
+end;
+
+
