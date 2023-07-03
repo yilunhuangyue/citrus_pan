@@ -1,0 +1,1 @@
+~/software/gce-1.0.0/kmerfreq/kmer_freq_array/kmer_freq -k 17 -q 33 -c -1 -p ${i} -l file_list 2> kmerfreq.log 
