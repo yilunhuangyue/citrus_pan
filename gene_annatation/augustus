@@ -1,1 +1,4 @@
-
+seqkit split -p 10 genome.fa.masked
+find genome.fa.masked.split/ -type f -name "*.masked" | parallel -j 10 augustus --species=arabidopsis --gff3=on >> temp.gff
+join_aug_pred.pl < temp.gff  | grep -v '^#' > temp.joined.gff
+bedtools sort -i temp.joined.gff > augustus.gff
