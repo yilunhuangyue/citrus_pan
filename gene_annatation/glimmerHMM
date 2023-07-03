@@ -1,0 +1,1 @@
+perl glimmerHMM.pl genome.fa.masked glimmer.gff
