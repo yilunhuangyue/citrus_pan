@@ -1,1 +1,3 @@
-
+plink --vcf all.filt3.recode.vcf --recode --out out --const-fid --allow-extra-chr
+plink --allow-extra-chr --file out --noweb --make-bed --out out_bed
+plink --allow-extra-chr --threads 20 -bfile out_bed --pca 20 --out out
