@@ -1,0 +1,20 @@
+1. assemble RNA-seq to transcripts
+~/software/trinityrnaseq-Trinity-v2.3.2/Trinity --seqType fq --max_memory 300G --left RNA_R1.fq  --right RNA_R2.fq --CPU 10
+~/software/trinityrnaseq-Trinity-v2.3.2/Trinity --genome_guided_bam map.sort.bam --genome_guided_max_intron 10000 --max_memory 200G --CPU 15
+
+2. align transcript to the genome to predict genes
+cat Trinity.fa Trinity_GG.fa>transcripts.fa
+~/software/PASApipeline-v2.3.3/misc_utilities/accession_extractor.pl < Trinity.fasta > tdn.accs
+~/software/PASApipeline-v2.3.3/Launch_PASA_pipeline.pl -c pasa.alignAssembly.Template.txt -R -C -g genome.fa  --ALIGNERS blat,gmap -t transcripts.fa --TDN tdn.accs --CPU 10
+
+3. Integrate results by different tools
+~/software/EVidenceModeler/EvmUtils/partition_EVM_inputs.pl --genome genome.fa  --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 500000 --overlapSize 10000 --partition_listing partitions_list.out
+~/software/EVidenceModeler/EvmUtils/write_EVM_commands.pl --genome genome.fa --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --weights $PATH/weight.txt --output_file_name evm.out --partitions partitions_list.out >commands.list
+parallel --jobs 30 < commands.list
+~/software/EVidenceModeler/EvmUtils/recombine_EVM_partial_outputs.pl --partitions partitions_list.out --output_file_name evm.out
+~/software/EVidenceModeler/EvmUtils/convert_EVM_outputs_to_GFF3.pl --partitions partitions_list.out --output evm.out --genome genome.fa
+cat chr*/evm.out.gff3 > EVM.gff3
+
+4. predict UTRs
+~/software/PASApipeline-v2.3.3/Launch_PASA_pipeline.pl -c pasa.annotationCompare.Template.txt -g genome.fa -t transcripts.fasta -A -L --annots EVM.gff3 --CPU 10
+~/software/PASApipeline-v2.3.3/Launch_PASA_pipeline.pl -c pasa.annotationCompare.Template.txt -g genome.fa -t transcripts.fasta -A -L --annots Aeg.gene_structures_post_PASA_updates.280446.gff3 --CPU 10
