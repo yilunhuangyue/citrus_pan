@@ -1,0 +1,2 @@
+snap  ~/software/SNAP/HMM/A.thaliana.hmm  genome.fa.masked > snap_at.zff
+~software/EVM_r2012-06-25/OtherGeneFinderTrainingGuide/SNAP/SNAP_output_to_gff3.pl snap.zff genome.fa.masked > snap.gff
