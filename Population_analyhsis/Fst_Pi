@@ -1,0 +1,3 @@
+vcftools --vcf species.filt.vcf --weir-fst-pop spe_pop1.txt --weir-fst-pop spe_pop2.txt --fst-window-size 2000000 --fst-window-step 1000000 --out Fst_pop1_pop2
+vcftools --vcf species.filt.vcf --keep spe_pop1.txt --window-pi 2000000 --window-pi-step 1000000 --out spe1_Pi
+vcftools --vcf species.filt.vcf --keep spe_pop2.txt --window-pi 2000000 --window-pi-step 1000000 --out spe2_Pi
