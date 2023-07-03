@@ -1,0 +1,5 @@
+vcftools --vcf species.filt.recode.vcf --plink --out xj
+plink --noweb --file xj  --make-bed --out QC
+for K in 12 13 14 15 16 17;
+do admixture --cv QC.bed $K|tee log${K}.out;
+done
